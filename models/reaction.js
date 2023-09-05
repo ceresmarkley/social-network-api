@@ -25,7 +25,6 @@ const reactionSchema = new Schema(
             type: Date,
             default: Date.now,
             get: (timestamp) => {
-                // use moment to set time format
                 return moment(timestamp).format('MM-DD-YYYY, dddd, HH:mm:ss');
             }
         },
