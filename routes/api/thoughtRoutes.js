@@ -1,5 +1,6 @@
 const router = require('express').Router();
 
+// import thought and reaction controller functions to connect to routes
 const {
     allThoughts,
     getThought,
