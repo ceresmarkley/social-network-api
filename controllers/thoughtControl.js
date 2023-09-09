@@ -2,7 +2,7 @@ const { User, Thought } = require('../models');
 
 module.exports = {
     // GET all thoughts
-    async getThoughts(req, res) {
+    async allThoughts(req, res) {
         try {
             const thoughtData = await Thought.find()
             // sorting by descending order will have newest posts appear first. This is perfect for current "feeds" data.
@@ -43,7 +43,7 @@ module.exports = {
             );
             // checks if user exists
             if (!userData) {
-                return res.status(404).json({ message: 'Oops! Could not recognize user! Make sure you are logged in before posting!'})
+                return res.status(404).json({ message: 'Oops! Could not recognize or find this user!'})
             }
             res.json({ message: 'You shared a NEW Thought!', thought: thoughtData });
         } catch (err) {
@@ -87,7 +87,7 @@ module.exports = {
             );
 
             if (!userData) {
-                return res.status(404).json({ message: 'Oops! Could not recognize user! Make sure you are logged in before posting!'})
+                return res.status(404).json({ message: 'Oops! Could not recognize or find this user!'})
             }
 
             res.json({ message: 'You forgot(deleted) a thought!'});

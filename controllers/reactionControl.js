@@ -1,6 +1,8 @@
 const { Thought } = require('../models');
 
 module.exports = {
+
+    // UPDATE a thought with a reaction
     async addReaction(req, res) {
         try {
             const thoughtData = await Thought.findOneAndUpdate(
@@ -18,8 +20,8 @@ module.exports = {
         }
     },
 
-    // remove one reaction from a thought
-    async removeReaction(req, res) {
+    // DELETE one reaction from a thought
+    async deleteReaction(req, res) {
         try {
             const thoughtData = await Thought.findOneAndUpdate(
                 { _id: req.params.thoughtId },
