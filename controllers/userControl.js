@@ -55,11 +55,64 @@ module.exports = {
                 if (!userData) {
                     return res.status(404).json({ message: 'Oops! Could not recognize or find this user!'})
                 }
-
                 res.json(userData);
         } catch (err) {
             console.log(err);
             res.status(500),json(err);
         }
+    },
+
+    // DELETE a user by ID
+    async deleteUser(req, res) {
+        try {
+            const userData = await User.findOneAndDelete({ _id: req.params.userID});
+            if (!userData) {
+                return res.status(404).json({ message: 'Oops! Could not recognize or find this user!'})
+            }
+            // adding function to delete user's thoughts before deleting user.
+            await Thought.deleteMany(
+                { _id: { $in: userData.thoughts }}
+            )
+            res.json({ message: 'Deleted User!'});
+        } catch (err) {
+            console.log(err);
+            res.status(500).json(err);
+        }
+    },
+
+    // UPDATE user by ADDING a friend
+    async addFriend(req, res) {
+        try {
+            const userData = await User.findOneAndUpdate({ _id: req.params.userID },
+                // '$ addToSet' will verify if you have the friend already. If they are not your friend yet then they will be added to friend array.
+                { $addToSet: {friends: req.params.friendId }},
+                { new:true });
+
+                if (!userData) {
+                    return res.status(404).json({ message: 'Oops! Could not recognize or find this user!'})
+                }
+                res.json(userData);
+            } catch (err) {
+                console.log(err);
+                res.status(500).json(err);
+            }
+    },
+
+    // UPDATE user by REMOVING a friend
+    async deleteFriend(req, res) {
+        try {
+            const userData = await User.findOneAndUpdate({ _id: req.params.userID },
+                // '$ pull' operator removes friend using friendId
+                { $pull: {friends: req.params.friendId }},
+                { new:true });
+
+                if (!userData) {
+                    return res.status(404).json({ message: 'Oops! Could not recognize or find this user!'})
+                }
+                res.json(userData);
+            } catch (err) {
+                console.log(err);
+                res.status(500).json(err);
+            }
     },
 }
