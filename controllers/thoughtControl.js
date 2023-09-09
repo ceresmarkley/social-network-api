@@ -52,5 +52,48 @@ module.exports = {
         }
     },
 
-    
+    // UPDATE a thought by ID
+    async updateThought(req, res) {
+        try {
+            // find thought using its ID
+            const thoughtData = await Thought.findOneAndUpdate({ _id: req.params.thoughtId},
+                // '$ set' operator used to replace request body.
+                { $set: req.body },
+                { runValidators: true, new: true });
+                if (!thoughtData) {
+                    return res.status(404).json({ message: 'Oops! Could not find thought with this ID'})
+                }
+                res.json(thoughtData);
+        } catch (err) {
+            console.log(err);
+            res.status(500).json(err);
+        }
+    },
+
+    // DELETE a thought by ID
+    async deleteThought(req, res) {
+        try {
+            // find thought using its ID
+            const thoughtData = await Thought.findOneAndRemove({ _id: req.params.thoughtId});
+            // check if thought exists with selected ID
+            if (!thoughtData) {
+                return res.status(404).json({ message: 'Oops! Could not find thought with this ID'})
+            }
+            // find user who had deleted thought and remove
+            const userData = await User.findOneAndUpdate({ thoughts: req.params.thoughtId },
+                // '$ pull' operator removes thought ID from thoughts ID database
+                { $pull: { thoughts: req.params.thoughtId }},
+                {new: true }
+            );
+
+            if (!userData) {
+                return res.status(404).json({ message: 'Oops! Could not recognize user! Make sure you are logged in before posting!'})
+            }
+
+            res.json({ message: 'You forgot(deleted) a thought!'});
+            } catch (err) {
+                console.log(err);
+                res.status(500).json(err);
+            }
+    },   
 }
