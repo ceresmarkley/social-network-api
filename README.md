@@ -70,4 +70,4 @@ Demo Video
 
 ## License
 
-* This application is licensed by [![GNU](https://img.shields.io/static/v1.svg?label=📃%20License&message=GNU&color=important)](./LICENSE).
+* [![GNU](https://img.shields.io/static/v1.svg?label=📃%20License&message=GNU&color=important)](./LICENSE).
