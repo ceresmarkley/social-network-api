@@ -9,11 +9,9 @@ const reactionSchema = new Schema(
         },
 
         reactionBody: {
-            type: Date,
-            default: Date.now,
-            get: (timestamp) => {
-                return moment(timestamp).format('MM-DD-YYYY, dddd, HH:mm:ss');
-            }
+            type: String,
+            require: true,
+            maxlength: 280,
         },
 
         username: {

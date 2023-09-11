@@ -36,7 +36,7 @@ module.exports = {
             // create thought by first sending the request body.
             const thoughtData = await Thought.create(req.body);
             // after sending request, check the user ID of user and connect to created thought
-            const userData = await User.findOneAndUpdate({ _id: req.body.userID },
+            const userData = await User.findOneAndUpdate({ _id: req.body.userId },
                 // '$ push' operator adds(updates) thought ID into thoughts ID database
                 { $push: { thoughts: thoughtData._id }},
                 {new: true }
