@@ -31,7 +31,7 @@ module.exports = {
             if (!thoughtData) {
                 return res.status(404).json({ message: 'Oops! Could not find thought with this ID' });
             }
-            res.json(thoughtData);
+            return res.status(200).json({ message: 'Reaction Deleted!', thoughtData } );
         } catch (err) {
             console.log(err);
             res.status(500).json(err);
