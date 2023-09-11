@@ -62,6 +62,10 @@ npm start
 Demo Video   
 
 
+https://github.com/ceresmarkley/social-network-api/assets/129554518/8254f069-31cf-4e51-a730-91e1583af4d2
+
+
+
 
 ## Links
 
@@ -71,3 +75,7 @@ Demo Video
 ## License
 
 * [![GNU](https://img.shields.io/static/v1.svg?label=📃%20License&message=GNU&color=important)](./LICENSE).
+
+## Sources
+
+[Peer Support](https://github.com/CQlove/Social-Network-API)
